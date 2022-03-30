@@ -29,7 +29,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // fetch all publications
 Route::get('/publications',[PublicationsApiController::class,'index']);
  
-// fetch publication of single author
+// fetch publication of single author, post email
 Route::post('/publications',[PublicationsApiController::class,'single']);
 
 //fetch single publication to view
@@ -88,6 +88,7 @@ Route::post('/reader',[PublicationsApiController::class,'reader']);
 //get all the readers of a book
 Route::post('/getreaders',[PublicationsApiController::class,'getReaders']);
 
+//upload a file
 Route::post('/upload',[UploadController::class,'uploadFile'])->name('upload.uploadfile'); 
 
 

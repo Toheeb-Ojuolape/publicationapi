@@ -24,7 +24,7 @@ class PublicationsApiController extends Controller
 
 
 
-    //publication for owner
+    //all publications for a particular owner
     public function single()
     {
     $publications = Collection::all()->where('email',request('email'));
@@ -74,6 +74,8 @@ class PublicationsApiController extends Controller
                 return response()->json($response,400); 
              }
     }
+
+    //create new publication 
     public function create()
     {
         $success = Collection::create([
@@ -109,12 +111,14 @@ class PublicationsApiController extends Controller
         }
     }
 
+    //fetch contributors to a publication
     public function fetch(){
         $contributors = Collection::find(request('id'))->contributors;
         $response = APIHelpers::createAPIResponse(false, 200,'', $contributors);
         return response()->json($response,200); 
     }
 
+    //delete a publication
     public function delete(Collection $id){
             $success = $id->delete();
             if($success){
@@ -153,6 +157,8 @@ class PublicationsApiController extends Controller
         }
     }
 
+
+    //rejecting a contributor
     public function contributordelete(Contributor $id){
         $success = $id->delete();
         if($success){
