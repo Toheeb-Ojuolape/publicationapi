@@ -3,11 +3,6 @@
 use Illuminate\Support\Str;
 
 
-define('RDS_HOSTNAME',$_SERVER['RDS_HOSTNAME']);
-define('RDS_USERNAME',$_SERVER['RDS_USERNAME']);
-define('RDS_PASSWORD',$_SERVER['RDS_PASSWORD']);
-define('RDS_PORT', $_SERVER['RDS_PORT']);
-define('RDS_DB_NAME', $_SERVER['RDS_DB_NAME']);
 
 return [
 
@@ -52,12 +47,12 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'url' => env('tellbooks-env.eba-mjmexmp7.us-east-1.elasticbeanstalk.com'),
-            'host' => RDS_HOSTNAME,
-            'port' => RDS_PORT,
-            'database' => RDS_DB_NAME,
-            'username' => RD_USERNAME,
-            'password' => RD_PASSWORD,
+            'url' => env('aa8g20nr4vgthj.ce53qe8kqanw.us-east-1.rds.amazonaws.com'),
+            'host' => env('DB_HOST', 'kora.api.tell.africa'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => env('DB_DATABASE', 'aa8g20nr4vgthj'),
+            'username' => env('DB_USERNAME', 'root'),
+            'password' => env('DB_PASSWORD', 'KORAPUBLICATIONS2022'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
