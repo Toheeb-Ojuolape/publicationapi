@@ -89,7 +89,7 @@ Route::post('/reader',[PublicationsApiController::class,'reader']);
 Route::post('/getreaders',[PublicationsApiController::class,'getReaders']);
 
 //upload a file
-Route::post('/upload',[UploadController::class,'uploadFile'])->name('upload');; 
+Route::post('/upload',[UploadController::class,'uploadFile']); 
 
 
 //send emails
