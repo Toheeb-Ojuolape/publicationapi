@@ -165,6 +165,7 @@ class PublicationsApiController extends Controller
     //rejecting a contributor
     public function contributordelete(Contributor $id){
         $ownerEmail = Contributor::find($id)->email;
+        $email = Contributor::find($id)->email;
         $ownerName = Contributor::find($id)->name;
         $name = Contributor::find($id)->name;
         $title = Collection::find(request('id'))->title;
