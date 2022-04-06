@@ -82,6 +82,7 @@ class PublicationsApiController extends Controller
             'title' => request('title'),
             'price' => request('price'),
             'author'=> request('author'),
+            'balance'=> request('balance'),
             'email'=> request('email'),
             'filetype'=> request('filetype'),
             'photoURL'=> request('photoURL'),
