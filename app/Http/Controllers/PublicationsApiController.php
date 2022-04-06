@@ -174,6 +174,30 @@ class PublicationsApiController extends Controller
         }
     }
 
+
+    //accepting a contributor
+    public function contributorupdate(Contributor $id)
+    {
+          $success = $id ->update([
+            'name' => request('name'),
+            'email' => request('email'),
+            'status' => request('status'),
+            'photoURL' => request('photoURL'),
+            'balance' => request('balance'),
+            'file' => request('file'),
+            'collection_id' => request('collection_id') 
+         ]);
+             if($success){
+                $response = APIHelpers::createAPIResponse(false, 200,'Publication has been accepted', null);
+                return response()->json($response,200); 
+             } else{
+                $response = APIHelpers::createAPIResponse(false, 400,'Sorry, the publication was not accepted', null);
+                return response()->json($response,400); 
+             }
+    }
+
+
+
     //when someone buys the publication
     public function buybook(){
         $contributors = Collection::find(request('id'))->contributors;

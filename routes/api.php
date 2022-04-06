@@ -65,7 +65,8 @@ Route::post('/contribute',[PublicationsApiController::class,'contribute']);
 //reject/delete contribution
 Route::delete('/contributors/{id}', [PublicationsApiController::class,'contributordelete']);
 
-
+//accept contribution
+Route::put('/contributors/{id}', [PublicationsApiController::class,'contributorupdate']);
 
 
 //for financing and contributor wallet
