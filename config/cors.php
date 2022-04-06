@@ -19,9 +19,9 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['*', 'http://localhost:8080', 'https://books.tell.africa', 'https://www.books.tell.africa'],
 
-    'allowed_origins_patterns' => [],
+    'allowed_origins_patterns' => ['/https?:\/\/books\.tell\.africa\/?\z/','/http?:\/\/localhost:\.8080\/?\z/'],
 
     'allowed_headers' => ['*'],
 
