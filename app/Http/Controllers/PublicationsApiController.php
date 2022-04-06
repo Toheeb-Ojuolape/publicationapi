@@ -145,6 +145,7 @@ class PublicationsApiController extends Controller
             'name' => request('name'),
             'email' => request('email'),
             'photoURL' => request('photoURL'),
+            'balance' => request('balance'),
             'file' => request('file'),
             'collection_id' => request('collection_id')
         ]);
