@@ -164,11 +164,30 @@ class PublicationsApiController extends Controller
 
     //rejecting a contributor
     public function contributordelete(Contributor $id){
+        $ownerEmail = Contributor::find($id)->email;
+        $ownerName = Contributor::find($id)->name;
+        $name = Contributor::find($id)->name;
+        $title = Collection::find(request('id'))->title;
         $success = $id->delete();
         if($success){
+        $mailData = [
+            'recipient' => $ownerEmail,
+             'name' => $ownerName,
+             'subject'=> "Your submission for $title was not accepted 😢",
+             'body' => "It is our regret to inform you that your submission for $title was not accepted. This hurts us as much as it hurts you. However, we would like to encourage you to KEEP WRITING. We still believe you're amazing.",
+             'from' => 'hello.tellbooks@gmail.com'
+        ];
+        \Mail::send('email-template',$mailData,function($message) use ($mailData){
+            $message ->to($mailData['recipient'])
+                     ->from($mailData['from'],'Tell! Books')
+                     ->subject($mailData['subject']);
+        });
             $response = APIHelpers::createAPIResponse(false, 200,'Contribution rejected successfully', null);
             return response()->json($response,200); 
-        } else{
+        } 
+        
+        else
+        {
             $response = APIHelpers::createAPIResponse(false, 400,'Error encounted while rejecting contribution', null);
             return response()->json($response,400); 
         }
