@@ -17,6 +17,8 @@ class CreateContributorsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email');
+            $table->string('photoURL');
+            $table->string('balance');
             $table->string('file');
             $table->integer('collection_id');
             $table->timestamps();

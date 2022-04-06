@@ -28,6 +28,7 @@ class CreateCollectionsTable extends Migration
             $table->string('coauthor');
             $table->string('currency');
             $table->float('price');
+            $table->float('balance');
             $table->float('percentage');
             $table->string('status');
             $table->string('date');
