@@ -63,7 +63,7 @@ Route::post('/contribute',[PublicationsApiController::class,'contribute']);
 
 
 //reject/delete contribution
-Route::post('/contributors/{id}', [PublicationsApiController::class,'contributordelete']);
+Route::delete('/contributors/{id}', [PublicationsApiController::class,'contributordelete']);
 
 
 
