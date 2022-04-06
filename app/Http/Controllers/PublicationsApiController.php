@@ -145,9 +145,9 @@ class PublicationsApiController extends Controller
         $contributor = Contributor::create([
             'name' => request('name'),
             'email' => request('email'),
+            'status' => request('status'),
             'photoURL' => request('photoURL'),
             'balance' => request('balance'),
-            'status' => request('status'),
             'file' => request('file'),
             'collection_id' => request('collection_id')
         ]);

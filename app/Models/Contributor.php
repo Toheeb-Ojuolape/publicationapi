@@ -10,7 +10,7 @@ class Contributor extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name','email','photoURL','balance','file','collection_id'
+        'name','email','photoURL','status','balance','file','collection_id'
     ];
 
     public function collections()
