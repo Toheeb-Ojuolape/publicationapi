@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b8ef7190daf1da8163851e0b88429a01",
+    "content-hash": "4ed3f8ae86716e7d8a1d39071c7da554",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2860,6 +2860,56 @@
                 }
             ],
             "time": "2021-09-25T23:10:38+00:00"
+        },
+        {
+            "name": "softius/cors-proxy",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/softius/php-cross-domain-proxy.git",
+                "reference": "be3713962b05902324ce8503bc36379cbbb1fd22"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/softius/php-cross-domain-proxy/zipball/be3713962b05902324ce8503bc36379cbbb1fd22",
+                "reference": "be3713962b05902324ce8503bc36379cbbb1fd22",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Iacovos Constantinou",
+                    "email": "softius@gmail.com",
+                    "homepage": "https://github.com/softius",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP CORS Proxy",
+            "homepage": "https://github.com/softius/php-cross-domain-proxy",
+            "keywords": [
+                "cors",
+                "cors-proxy",
+                "proxy",
+                "softius"
+            ],
+            "support": {
+                "issues": "https://github.com/softius/php-cross-domain-proxy/issues",
+                "source": "https://github.com/softius/php-cross-domain-proxy/tree/master"
+            },
+            "time": "2018-09-21T14:12:16+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -7913,7 +7963,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "softius/cors-proxy": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
