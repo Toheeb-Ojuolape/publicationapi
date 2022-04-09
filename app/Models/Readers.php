@@ -10,7 +10,7 @@ class Readers extends Model
     use HasFactory;
 
     protected $fillable = [
-        'uid','id','currency','title', 'bookcover','author','email',
+        'uid','id','currency','title', 'bookcover','author','email','name','readerPhoto',
         'filetype','photoURL','slug','description','category',
         'book','price','rating','collection_id'
     ];

@@ -19,6 +19,8 @@ class CreateFinancesTable extends Migration
             $table->string('currency');
             $table->string('email');
             $table->text('notification');
+            $table->string('photoURL');
+            $table->string('name');
             $table->string('usertype');
             $table->timestamps();
         });

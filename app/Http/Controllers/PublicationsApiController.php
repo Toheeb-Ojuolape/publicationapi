@@ -220,6 +220,7 @@ class PublicationsApiController extends Controller
         $slug = Collection::find(request('id'))->slug;
         $photoURL = Collection::find(request('id'))->photoURL;
         $ownersPay = $price * (1- $percentage);
+        $authorPhoto = request('photoURL');
 
         $readersData = Readers::create([
             'uid'=> request('uid'),
@@ -228,9 +229,10 @@ class PublicationsApiController extends Controller
             'bookcover' => $bookcover,
             'author'=>$author,
             'email'=>$email,
-            'name'=>$name,
+            'name'=>$name, 
             'filetype'=>$filetype,
             'photoURL'=>$photoURL,
+            'readerPhoto'=>request('photoURL'),
             'slug' => $slug,
             'description'=> $description,
             'category'=> $category,
@@ -247,6 +249,8 @@ class PublicationsApiController extends Controller
           'wallet' => $ownersPay,
           'currency' => $currency,
           'email' => $ownerEmail,
+          'name' => $name,
+          'photoURL' => $photoURL,
           'notification' => "New purchase for your book $title",
           'usertype'=>"Owner"
         ]);
@@ -257,7 +261,9 @@ class PublicationsApiController extends Controller
           $success = Finance::create([
           'wallet' => ($price * $percentage)/count($contributors),
           'currency' => $currency,
-          'email' => $contributor['email'],
+          'email' => $ownerEmail,
+          'name' => $name,
+          'photoURL' => $photoURL,
           'notification' => "New purchase for your publication $title",
           'usertype'=>"Contributor"
           ]);
@@ -321,6 +327,106 @@ class PublicationsApiController extends Controller
        }
        $response = APIHelpers::createAPIResponse(false, 200,'',$sum);
        return response()->json($response,200); 
+    }
+
+    //withdraw money from single publication
+
+    public function withdrawSingle(){
+        $name = request('author');
+        $currency = request('currency');
+        $bank = request('bank');
+        $accountNumber = request('accountNumber');
+       
+        $success = $id ->update([
+            'title' => request('title'),
+            'price' => request('price'),
+            'author'=> $name,
+            'email'=> request('email'),
+            'filetype'=> request('filetype'),
+            'photoURL'=> request('photoURL'),
+            'rating' => request('rating'),
+            'readers'=> request('readers'),
+            'percentage'=> request('percentage'),
+            'description' => request('description'),
+            'bookcover' => request('bookcover'),
+            'date' => request('date'),
+            'downloadable' => request('downloadable'),
+            'book' => request('book'),
+            'timestamp' => request('timestamp'),
+            'earnings' => $amount,
+            'slug' => request('slug'),
+            'currency'=> request('currency'),
+            'coauthor' => request('coauthor'),
+            'category' => request('category'),
+         ]);
+             if($success){
+                $response = APIHelpers::createAPIResponse(false, 200,'Withdrawal has been processed successfully', null);
+
+
+                $mailData = [
+                     'recipient' => "books@tell.africa",
+                     'name' => "Tell! Books",
+                     'subject'=> "$name has sent a withdrawal request",
+                     'body' => "$name has requested to withdraw $currency $amount from their account. Bank: $bank, Account Number: $accountNumber",
+                     'from' => 'hello.tellbooks@gmail.com'
+                ];
+                \Mail::send('email-template',$mailData,function($message) use ($mailData){
+                    $message ->to($mailData['recipient'])
+                             ->from($mailData['from'],'Tell! Books')
+                             ->subject($mailData['subject']);
+                });
+
+
+
+                return response()->json($response,200); 
+             } else{
+                $response = APIHelpers::createAPIResponse(false, 400,'Sorry, the publication was not updated!', null);
+                return response()->json($response,400); 
+             }
+    }
+
+    //withdraw money user and contributor
+    public function withdraw(){
+        $name = request('name');
+        $email = request('email');
+        $amount = request('amount');
+        $currency = request('currency');
+        $bank = request('bank');
+        $accountNumber = request('accountNumber');
+
+        $successs = Finance::create([
+            'wallet' => $amount,
+            'currency' => $currency,
+            'email' => $email,
+            'name' => $name,
+            'photoURL' => request('photoURL'),
+            'notification' => "Withdrawal Successful",
+            'usertype'=>request('usertype')
+          ]);
+
+          if($success){
+            $response = APIHelpers::createAPIResponse(false, 200,'Withdrawal request sent successfully', null);
+
+            $mailData = [
+                'recipient' => "books@tell.africa",
+                 'name' => "Tell! Books",
+                 'subject'=> "$name has sent a withdrawal request",
+                 'body' => "$name has requested to withdraw $currency $amount from their account. Bank: $bank, Account Number: $accountNumber",
+                 'from' => 'hello.tellbooks@gmail.com'
+            ];
+            \Mail::send('email-template',$mailData,function($message) use ($mailData){
+                $message ->to($mailData['recipient'])
+                         ->from($mailData['from'],'Tell! Books')
+                         ->subject($mailData['subject']);
+            });
+
+
+
+            return response()->json($response,200); 
+         } else{
+            $response = APIHelpers::createAPIResponse(false, 400,'Sorry, withdrawal request not successful', null);
+            return response()->json($response,400); 
+         }
     }
  
 

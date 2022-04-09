@@ -22,6 +22,8 @@ class CreateReadersTable extends Migration
             $table->string('email');
             $table->string('filetype');
             $table->string('photoURL');
+            $table->string('readerPhoto');
+            $table->string('name');
             $table->float('rating');
             $table->string('slug');
             $table->text('description');

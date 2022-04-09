@@ -89,6 +89,12 @@ Route::post('/reader',[PublicationsApiController::class,'reader']);
 //get all the readers of a book
 Route::post('/getreaders',[PublicationsApiController::class,'getReaders']);
 
+//withdraw money from a single publication
+Route::post('/single/withdraw',[PublicationsApiController::class,'withdrawSingle']);
+
+//withdraw money from publication wallet
+Route::post('/withdraw',[PublicationsApiController::class,'withdraw']);
+
 //upload a file
 Route::post('/upload',[UploadController::class,'uploadFile']); 
 

@@ -9,5 +9,5 @@ class Finance extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['wallet','name','email','id','uid','currency','notification','usertype'];
+    protected $fillable = ['wallet','name','email','photoURL','id','currency','notification','usertype'];
 }
