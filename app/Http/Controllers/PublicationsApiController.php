@@ -355,6 +355,7 @@ class PublicationsApiController extends Controller
             'book' => request('book'),
             'timestamp' => request('timestamp'),
             'earnings' => $amount,
+            'status'=>request('status'),
             'slug' => request('slug'),
             'currency'=> request('currency'),
             'coauthor' => request('coauthor'),
