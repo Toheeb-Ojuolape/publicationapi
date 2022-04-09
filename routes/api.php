@@ -90,7 +90,7 @@ Route::post('/reader',[PublicationsApiController::class,'reader']);
 Route::post('/getreaders',[PublicationsApiController::class,'getReaders']);
 
 //withdraw money from a single publication
-Route::post('/single/withdraw',[PublicationsApiController::class,'withdrawSingle']);
+Route::post('/withdraw/{id}',[PublicationsApiController::class,'withdrawSingle']);
 
 //withdraw money from publication wallet
 Route::post('/withdraw',[PublicationsApiController::class,'withdraw']);

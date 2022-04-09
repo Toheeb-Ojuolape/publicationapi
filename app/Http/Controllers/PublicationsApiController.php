@@ -331,7 +331,7 @@ class PublicationsApiController extends Controller
 
     //withdraw money from single publication
 
-    public function withdrawSingle(){
+    public function withdrawSingle(Collection $id){
         $name = request('author');
         $currency = request('currency');
         $bank = request('bank');
