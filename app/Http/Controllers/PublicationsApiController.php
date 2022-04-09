@@ -336,6 +336,7 @@ class PublicationsApiController extends Controller
         $currency = request('currency');
         $bank = request('bank');
         $accountNumber = request('accountNumber');
+        $amount = request('amount');
        
         $success = $id ->update([
             'title' => request('title'),
