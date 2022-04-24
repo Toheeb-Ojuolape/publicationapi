@@ -164,8 +164,25 @@ class PublicationsApiController extends Controller
 
     //rejecting a contributor
     public function contributordelete(Contributor $id){
+        $title = Collection::find(request('collection_id'))->title;
+        $name = Contributor::find($id)->name;
         $success = $id->delete();
         if($success){
+
+            $mailData = [
+                'recipient' => Contributor::find($id)->email,
+                 'name' => $name,
+                 'subject'=> "Your submission for $title, was rejected",
+                 'body' => "Congratulations $name. Your submission for $title, was rejected. However, we would like to encourage you to keep writing and own your skills as a writer. You can also take writing courses online by visiting https://academy.tell.africa.",
+                 'from' => 'hello.tellbooks@gmail.com'
+            ];
+            \Mail::send('email-template',$mailData,function($message) use ($mailData){
+                $message ->to($mailData['recipient'])
+                         ->from($mailData['from'],'Tell! Books')
+                         ->subject($mailData['subject']);
+            });
+
+
             $response = APIHelpers::createAPIResponse(false, 200,'Contribution rejected successfully', null);
             return response()->json($response,200); 
         } else{
@@ -178,6 +195,11 @@ class PublicationsApiController extends Controller
     //accepting a contributor
     public function contributorupdate(Contributor $id)
     {
+          $collectionId = request('collection_id');
+          $title = Collection::find($collectionId)->title;
+          $email = request('email');
+          $name = request('name');
+
           $success = $id ->update([
             'name' => request('name'),
             'email' => request('email'),
@@ -188,6 +210,19 @@ class PublicationsApiController extends Controller
             'collection_id' => request('collection_id') 
          ]);
              if($success){
+
+                $mailData = [
+                    'recipient' => $email,
+                     'name' => $name,
+                     'subject'=> "Your submission for $title, was accepted",
+                     'body' => "Congratulations $name. Your submission for $title, was accepted. If it is a paid publication, your publication wallet will be credited after each sale. Thank you for your contribution.",
+                     'from' => 'hello.tellbooks@gmail.com'
+                ];
+                \Mail::send('email-template',$mailData,function($message) use ($mailData){
+                    $message ->to($mailData['recipient'])
+                             ->from($mailData['from'],'Tell! Books')
+                             ->subject($mailData['subject']);
+                });
                 $response = APIHelpers::createAPIResponse(false, 200,'Publication has been accepted', null);
                 return response()->json($response,200); 
              } else{
@@ -200,6 +235,7 @@ class PublicationsApiController extends Controller
 
     //when someone buys the publication
     public function buybook(){
+        //pass id, email,name,uid, photoURL
         $contributors = Collection::find(request('id'))->contributors;
         $percentage = Collection::find(request('id'))->percentage;
         $ownerEmail = Collection::find(request('id'))->email;

@@ -21,6 +21,7 @@ class Collection extends Model
         'percentage',
         'description',
         'bookcover',
+        'status',
         'date',
         'downloadable',
         'book',
@@ -30,7 +31,7 @@ class Collection extends Model
         'currency',
         'coauthor',
         'category',
-        'status'
+       
     ];
 
     public function contributors()
